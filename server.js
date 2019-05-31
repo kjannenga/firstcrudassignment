@@ -39,8 +39,9 @@ storage = JSON.parse(fs.readFileSync(__dirname + '/storage.json', 'utf8'))
 
   app.delete('/users/:first_name', function (req, res) {
     let newList = storage.filter(x => x.name !== req.params.name)
-    fs.writeFileSync('./storage.json', JSON.stringify(newList));
-    res.send(newList);
+    storage = newList
+    fs.writeFileSync('./storage.json', JSON.stringify(storage));
+    res.send(storage);
   })
 
 app.listen(port, ()=>{
